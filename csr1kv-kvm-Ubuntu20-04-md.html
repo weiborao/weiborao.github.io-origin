@@ -23,18 +23,18 @@
   <meta name="description" content="Last Update: February 3, 2021 Author: Rao Weibo Version: 1.0 This guide provides the steps on how to install CSR1000v&#x2F;Catalyst 8000v on KVM, the setting of SRIOV and KVM tuning. Ubuntu 20.04 Installat">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Cisco CSR1000v KVM SRIOV Setting Guide on Ubuntu 20.04 With NetworkManager">
-<meta property="og:url" content="https://weiborao.github.io/2021/02/03/csr1kv-kvm-Ubuntu20-04-md/index.html">
+<meta property="og:url" content="https://weiborao.github.io/csr1kv-kvm-Ubuntu20-04-md.html">
 <meta property="og:site_name" content="Rao Weibo的博客">
 <meta property="og:description" content="Last Update: February 3, 2021 Author: Rao Weibo Version: 1.0 This guide provides the steps on how to install CSR1000v&#x2F;Catalyst 8000v on KVM, the setting of SRIOV and KVM tuning. Ubuntu 20.04 Installat">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://weiborao.github.io/2021/02/03/csr1kv-kvm-Ubuntu20-04-md/pic1-sriov-pool.png">
-<meta property="og:image" content="https://weiborao.github.io/2021/02/03/csr1kv-kvm-Ubuntu20-04-md/virt-manager-step1.png">
-<meta property="og:image" content="https://weiborao.github.io/2021/02/03/csr1kv-kvm-Ubuntu20-04-md/virt-manager-step2.png">
-<meta property="og:image" content="https://weiborao.github.io/2021/02/03/csr1kv-kvm-Ubuntu20-04-md/virt-manager-step2-2.png">
-<meta property="og:image" content="https://weiborao.github.io/2021/02/03/csr1kv-kvm-Ubuntu20-04-md/virt-manager-step3.png">
-<meta property="og:image" content="https://weiborao.github.io/2021/02/03/csr1kv-kvm-Ubuntu20-04-md/virt-manager-step4.png">
-<meta property="og:image" content="https://weiborao.github.io/2021/02/03/csr1kv-kvm-Ubuntu20-04-md/add-sriov-pool.png">
-<meta property="og:image" content="https://weiborao.github.io/2021/02/03/csr1kv-kvm-Ubuntu20-04-md/line-chart.png">
+<meta property="og:image" content="https://weiborao.github.io/csr1kv-kvm-Ubuntu20-04-md/pic1-sriov-pool.png">
+<meta property="og:image" content="https://weiborao.github.io/csr1kv-kvm-Ubuntu20-04-md/virt-manager-step1.png">
+<meta property="og:image" content="https://weiborao.github.io/csr1kv-kvm-Ubuntu20-04-md/virt-manager-step2.png">
+<meta property="og:image" content="https://weiborao.github.io/csr1kv-kvm-Ubuntu20-04-md/virt-manager-step2-2.png">
+<meta property="og:image" content="https://weiborao.github.io/csr1kv-kvm-Ubuntu20-04-md/virt-manager-step3.png">
+<meta property="og:image" content="https://weiborao.github.io/csr1kv-kvm-Ubuntu20-04-md/virt-manager-step4.png">
+<meta property="og:image" content="https://weiborao.github.io/csr1kv-kvm-Ubuntu20-04-md/add-sriov-pool.png">
+<meta property="og:image" content="https://weiborao.github.io/csr1kv-kvm-Ubuntu20-04-md/line-chart.png">
 <meta property="article:published_time" content="2021-02-03T14:37:33.000Z">
 <meta property="article:modified_time" content="2021-02-03T15:46:11.581Z">
 <meta property="article:author" content="Rao Weibo">
@@ -43,9 +43,9 @@
 <meta property="article:tag" content="SRIOV">
 <meta property="article:tag" content="NetworkManager">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://weiborao.github.io/2021/02/03/csr1kv-kvm-Ubuntu20-04-md/pic1-sriov-pool.png">
+<meta name="twitter:image" content="https://weiborao.github.io/csr1kv-kvm-Ubuntu20-04-md/pic1-sriov-pool.png">
 
-<link rel="canonical" href="https://weiborao.github.io/2021/02/03/csr1kv-kvm-Ubuntu20-04-md/">
+<link rel="canonical" href="https://weiborao.github.io/csr1kv-kvm-Ubuntu20-04-md.html">
 
 
 <script id="page-configurations">
@@ -163,7 +163,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://weiborao.github.io/2021/02/03/csr1kv-kvm-Ubuntu20-04-md/">
+    <link itemprop="mainEntityOfPage" href="https://weiborao.github.io/csr1kv-kvm-Ubuntu20-04-md.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -340,25 +340,25 @@
 <p>ubuntu@ubuntu-kvm:~/kvm$ virsh net-dumpxml ens1f0_sriov_pool</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">network</span> <span class="attr">connections</span>=<span class="string">&#x27;1&#x27;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>ens1f0_sriov_pool<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">uuid</span>&gt;</span>9125a600-6620-4ab6-9a47-8844a61b0918<span class="tag">&lt;/<span class="name">uuid</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">forward</span> <span class="attr">mode</span>=<span class="string">&#x27;hostdev&#x27;</span> <span class="attr">managed</span>=<span class="string">&#x27;yes&#x27;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">pf</span> <span class="attr">dev</span>=<span class="string">&#x27;ens1f0&#x27;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">address</span> <span class="attr">type</span>=<span class="string">&#x27;pci&#x27;</span> <span class="attr">domain</span>=<span class="string">&#x27;0x0000&#x27;</span> <span class="attr">bus</span>=<span class="string">&#x27;0x5e&#x27;</span> <span class="attr">slot</span>=<span class="string">&#x27;0x02&#x27;</span> <span class="attr">function</span>=<span class="string">&#x27;0x0&#x27;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">address</span> <span class="attr">type</span>=<span class="string">&#x27;pci&#x27;</span> <span class="attr">domain</span>=<span class="string">&#x27;0x0000&#x27;</span> <span class="attr">bus</span>=<span class="string">&#x27;0x5e&#x27;</span> <span class="attr">slot</span>=<span class="string">&#x27;0x02&#x27;</span> <span class="attr">function</span>=<span class="string">&#x27;0x1&#x27;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">forward</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">network</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h2 id="3-Select-the-virtual-adapter-from-the-pool"><a href="#3-Select-the-virtual-adapter-from-the-pool" class="headerlink" title="(3) Select the virtual adapter from the pool"></a>(3) Select the virtual adapter from the pool</h2><p>It is simple to add an SR-IOV NIC, as follow:</p>
-<img src="/2021/02/03/csr1kv-kvm-Ubuntu20-04-md/pic1-sriov-pool.png" class="" title="SRIOV Adapter Pool">
+<img src="/csr1kv-kvm-Ubuntu20-04-md/pic1-sriov-pool.png" class="" title="SRIOV Adapter Pool">
 
 <p>This is equivalent to the following XML:</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">interface</span> <span class="attr">type</span>=<span class="string">&#x27;network&#x27;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">mac</span> <span class="attr">address</span>=<span class="string">&#x27;52:54:00:0b:a5:2e&#x27;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">network</span>=<span class="string">&#x27;ens1f0_sriov_pool&#x27;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">model</span> <span class="attr">type</span>=<span class="string">&#x27;virtio&#x27;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">address</span> <span class="attr">type</span>=<span class="string">&#x27;pci&#x27;</span> <span class="attr">domain</span>=<span class="string">&#x27;0x0000&#x27;</span> <span class="attr">bus</span>=<span class="string">&#x27;0x02&#x27;</span> <span class="attr">slot</span>=<span class="string">&#x27;0x00&#x27;</span> <span class="attr">function</span>=<span class="string">&#x27;0x0&#x27;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">interface</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>After the VM powered on, the network info is as follow:<br>virsh dumpxml CSR1KV-1</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">interface</span> <span class="attr">type</span>=<span class="string">&#x27;hostdev&#x27;</span> <span class="attr">managed</span>=<span class="string">&#x27;yes&#x27;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">mac</span> <span class="attr">address</span>=<span class="string">&#x27;52:54:00:0b:a5:2e&#x27;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">driver</span> <span class="attr">name</span>=<span class="string">&#x27;vfio&#x27;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">address</span> <span class="attr">type</span>=<span class="string">&#x27;pci&#x27;</span> <span class="attr">domain</span>=<span class="string">&#x27;0x0000&#x27;</span> <span class="attr">bus</span>=<span class="string">&#x27;0x5e&#x27;</span> <span class="attr">slot</span>=<span class="string">&#x27;0x02&#x27;</span> <span class="attr">function</span>=<span class="string">&#x27;0x0&#x27;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">source</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">model</span> <span class="attr">type</span>=<span class="string">&#x27;virtio&#x27;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">alias</span> <span class="attr">name</span>=<span class="string">&#x27;hostdev0&#x27;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">address</span> <span class="attr">type</span>=<span class="string">&#x27;pci&#x27;</span> <span class="attr">domain</span>=<span class="string">&#x27;0x0000&#x27;</span> <span class="attr">bus</span>=<span class="string">&#x27;0x02&#x27;</span> <span class="attr">slot</span>=<span class="string">&#x27;0x00&#x27;</span> <span class="attr">function</span>=<span class="string">&#x27;0x0&#x27;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">interface</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h1 id="Create-the-CSR1KV-VM-from-virt-manager"><a href="#Create-the-CSR1KV-VM-from-virt-manager" class="headerlink" title="Create the CSR1KV VM from virt-manager"></a>Create the CSR1KV VM from virt-manager</h1><p>From the virt-manager, create a CSR1KV virtual machine step by step, and choose the virtual network interface from the SR-IOV pool.</p>
-<img src="/2021/02/03/csr1kv-kvm-Ubuntu20-04-md/virt-manager-step1.png" class="" title="Virt-manager step 1">
+<img src="/csr1kv-kvm-Ubuntu20-04-md/virt-manager-step1.png" class="" title="Virt-manager step 1">
 
-<img src="/2021/02/03/csr1kv-kvm-Ubuntu20-04-md/virt-manager-step2.png" class="" title="Virt-manager Step 2">
+<img src="/csr1kv-kvm-Ubuntu20-04-md/virt-manager-step2.png" class="" title="Virt-manager Step 2">
 
-<img src="/2021/02/03/csr1kv-kvm-Ubuntu20-04-md/virt-manager-step2-2.png" class="" title="Virt-manager Step2-2">
+<img src="/csr1kv-kvm-Ubuntu20-04-md/virt-manager-step2-2.png" class="" title="Virt-manager Step2-2">
 
-<img src="/2021/02/03/csr1kv-kvm-Ubuntu20-04-md/virt-manager-step3.png" class="" title="Virt-manager Step 3">
+<img src="/csr1kv-kvm-Ubuntu20-04-md/virt-manager-step3.png" class="" title="Virt-manager Step 3">
 
-<img src="/2021/02/03/csr1kv-kvm-Ubuntu20-04-md/virt-manager-step4.png" class="" title="Virt-manager Step 4">
+<img src="/csr1kv-kvm-Ubuntu20-04-md/virt-manager-step4.png" class="" title="Virt-manager Step 4">
 
 <p>Note: The first interface of csr1kv-1 is configured to <strong>macvtap Bridge mode</strong>, so you do not need to create a Linux bridge. However, csr1kv-1 can not communicate to the Linux host through this interface, but it can go out of the Linux host through the eno1. This is a known issue with macvtap.</p>
-<img src="/2021/02/03/csr1kv-kvm-Ubuntu20-04-md/add-sriov-pool.png" class="" title="Virt-manager Step 5">
+<img src="/csr1kv-kvm-Ubuntu20-04-md/add-sriov-pool.png" class="" title="Virt-manager Step 5">
 
 <p>After select the Virtual Network Interface, click the <strong>Begin Installation</strong>, and you can shut down the virtual machine.<br>The actions above will create the <strong>csr1kv-1.xml</strong> file under the directory: <strong>/etc/libvirtd/qemu/</strong></p>
 <h1 id="KVM-Performance-Tunning"><a href="#KVM-Performance-Tunning" class="headerlink" title="KVM Performance Tunning"></a>KVM Performance Tunning</h1><p>KVM performance tuning are related to NUMA, Memory Hugepage and vCPU pinning. The main reference is Redhat Linux 7 PERFORMANCE TUNING GUIDE</p>
@@ -441,7 +441,7 @@
 <td>18171.88</td>
 </tr>
 </tbody></table>
-<img src="/2021/02/03/csr1kv-kvm-Ubuntu20-04-md/line-chart.png" class="" title="Performance Line Chart">
+<img src="/csr1kv-kvm-Ubuntu20-04-md/line-chart.png" class="" title="Performance Line Chart">
 
 <p>Note: <strong>These test results are not to represent the official performance data. Different servers and network cards may have different test results. The above data is for demo only.</strong></p>
 <h2 id="2-The-limitation-of-the-SR-IOV"><a href="#2-The-limitation-of-the-SR-IOV" class="headerlink" title="(2) The limitation of the SR-IOV"></a>(2) The limitation of the SR-IOV</h2><p>The main limitation of the SR-IOV is the number of VLANs on each VF, the maximum VLAN of an VF is limited to 63 in ixgbevf.<br>So, the active number of sub-interfaces on an interface of the CSR1KV that uses the SRIOV VFs is limited to 63.<br>There is some notes in the Cisco CSR 1000v and Cisco ISRv Software Configuration Guide:</p>
@@ -490,7 +490,7 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/02/03/csr1kv-kvm-CentOS7/" rel="prev" title="CSR 1000v KVM SRIOV CentOS 7安装设置指南">
+    <a href="/csr1kv-kvm-CentOS7.html" rel="prev" title="CSR 1000v KVM SRIOV CentOS 7安装设置指南">
       <i class="fa fa-chevron-left"></i> CSR 1000v KVM SRIOV CentOS 7安装设置指南
     </a></div>
       <div class="post-nav-item"></div>
