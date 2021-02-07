@@ -147,6 +147,80 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://weiborao.github.io/hexo-setup-log-md.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Rao Weibo">
+      <meta itemprop="description" content="记录一些工作、学习相关的笔记">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rao Weibo的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/hexo-setup-log-md.html" class="post-title-link" itemprop="url">Hexo 安装设置遇到的问题及解决办法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-02-07 23:36:19 / 修改时间：23:51:11" itemprop="dateCreated datePublished" datetime="2021-02-07T23:36:19+08:00">2021-02-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><p>正常按照<strong>brew install node</strong> 以及 <strong>npm install -g hexo-cli</strong> 安装完以后，运行<strong>hexo deploy</strong>报错，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">➜  blog hexo d</span><br><span class="line">INFO  Validating config</span><br><span class="line">INFO  Deploying: git</span><br><span class="line">INFO  Clearing .deploy_git folder...</span><br><span class="line">INFO  Copying files from public folder...</span><br><span class="line">FATAL &#123;</span><br><span class="line">  err: TypeError [ERR_INVALID_ARG_TYPE]: The <span class="string">&quot;mode&quot;</span> argument must be <span class="built_in">integer</span>. Received an instance of Object</span><br><span class="line">      at copyFile (node:fs:2019:10)</span><br><span class="line">      at tryCatcher (/Users/werao/blog/node_modules/bluebird/js/release/util.js:16:23)</span><br><span class="line">      at ret (<span class="built_in">eval</span> at makeNodePromisifiedEval (/usr/<span class="built_in">local</span>/lib/node_modules/hexo-cli/node_modules/bluebird/js/release/promisify.js:184:12), &lt;anonymous&gt;:13:39)</span><br></pre></td></tr></table></figure>
+<p>网上查找了一下，报错的原因是Hexo与Node.js的兼容性问题。</p>
+<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><p>非常幸运，找到一篇文章：<a target="_blank" rel="noopener" href="http://franktianyirenjian.github.io/2020/04/28/%E9%87%8D%E8%A3%85Hexo%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/">重装Hexo遇到的坑</a> 作者 成百川。</p>
+<p>简要记录步骤如下：</p>
+<ol>
+<li><p>卸载node<br><strong>brew uninstall node</strong></p>
+</li>
+<li><p>安装nvm<br><strong>brew install nvm</strong></p>
+</li>
+<li><p>使用nvm安装低于14.0版本的node.js<br><strong>nvm install v13.14.0</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Now using node v13.14.0 (npm v6.14.4)</span><br><span class="line">Creating default <span class="built_in">alias</span>: default -&gt; v13.14.0</span><br></pre></td></tr></table></figure></li>
+<li><p>重新运行hexo deploy -g 发布本文。</p>
+</li>
+</ol>
+<p>鸣谢成百川。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://weiborao.github.io/csr1kv-kvm-Ubuntu20-04-md.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -353,12 +427,12 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
