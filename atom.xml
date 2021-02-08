@@ -6,7 +6,7 @@
   <link href="https://weiborao.github.io/atom.xml" rel="self"/>
   
   <link href="https://weiborao.github.io/"/>
-  <updated>2021-02-08T02:15:58.755Z</updated>
+  <updated>2021-02-08T03:06:04.401Z</updated>
   <id>https://weiborao.github.io/</id>
   
   <author>
@@ -15,6 +15,62 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Cisco NFVIS CSR1Kv ZTP Onboarding for SDWAN</title>
+    <link href="https://weiborao.github.io/csr1kv-nfvis-ztp-demo.html"/>
+    <id>https://weiborao.github.io/csr1kv-nfvis-ztp-demo.html</id>
+    <published>2021-02-08T03:02:43.000Z</published>
+    <updated>2021-02-08T03:06:04.401Z</updated>
+    
+    <content type="html"><![CDATA[<div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">    <iframe src="//player.bilibili.com/player.html?aid=544065936&bvid=BV1Zv4y1o7YJ&cid=294265132&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;">    </iframe></div>]]></content>
+    
+    
+      
+      
+    <summary type="html">
+
+&lt;div style=&quot;position: relative; width: 100%; height: 0; padding-bottom: 75%;&quot;&gt;
+    &lt;iframe src=&quot;//player.bilibili.com/player.html?aid=5440</summary>
+      
+    
+    
+    
+    
+    <category term="ztp" scheme="https://weiborao.github.io/tags/ztp/"/>
+    
+    <category term="nfvis" scheme="https://weiborao.github.io/tags/nfvis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Cisco CSR 1000v &amp; Catalyst 8000v KVM SRIOV安装设置演示</title>
+    <link href="https://weiborao.github.io/csr1kv-kvm-sriov-ubuntu-demo.html"/>
+    <id>https://weiborao.github.io/csr1kv-kvm-sriov-ubuntu-demo.html</id>
+    <published>2021-02-08T02:36:08.000Z</published>
+    <updated>2021-02-08T03:06:07.018Z</updated>
+    
+    <content type="html"><![CDATA[<div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">    <iframe src="//player.bilibili.com/player.html?aid=501530216&bvid=BV1VN411R75t&cid=294248612&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;">    </iframe></div>]]></content>
+    
+    
+      
+      
+    <summary type="html">
+
+&lt;div style=&quot;position: relative; width: 100%; height: 0; padding-bottom: 75%;&quot;&gt;
+    &lt;iframe src=&quot;//player.bilibili.com/player.html?aid=5015</summary>
+      
+    
+    
+    
+    
+    <category term="sriov" scheme="https://weiborao.github.io/tags/sriov/"/>
+    
+    <category term="csr1000v" scheme="https://weiborao.github.io/tags/csr1000v/"/>
+    
+    <category term="ztp" scheme="https://weiborao.github.io/tags/ztp/"/>
+    
+  </entry>
   
   <entry>
     <title>Hexo 安装设置遇到的问题及解决办法</title>
