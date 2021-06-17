@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://weiborao.github.io/deploy-thousandeyes-agent-on-aws.html</loc>
+    
+    <lastmod>2021-06-17</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://weiborao.github.io/master-kvm-notes-1.html</loc>
     
     <lastmod>2021-02-22</lastmod>
@@ -46,7 +53,7 @@
 
   <url>
     <loc>https://weiborao.github.io/</loc>
-    <lastmod>2021-02-22</lastmod>
+    <lastmod>2021-06-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -54,77 +61,91 @@
   
   <url>
     <loc>https://weiborao.github.io/tags/CSR1000v/</loc>
-    <lastmod>2021-02-22</lastmod>
+    <lastmod>2021-06-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://weiborao.github.io/tags/KVM/</loc>
-    <lastmod>2021-02-22</lastmod>
+    <lastmod>2021-06-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://weiborao.github.io/tags/SRIOV/</loc>
-    <lastmod>2021-02-22</lastmod>
+    <lastmod>2021-06-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://weiborao.github.io/tags/NetworkManager/</loc>
-    <lastmod>2021-02-22</lastmod>
+    <lastmod>2021-06-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://weiborao.github.io/tags/Cisco/</loc>
-    <lastmod>2021-02-22</lastmod>
+    <lastmod>2021-06-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://weiborao.github.io/tags/hexo/</loc>
-    <lastmod>2021-02-22</lastmod>
+    <lastmod>2021-06-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://weiborao.github.io/tags/sriov/</loc>
-    <lastmod>2021-02-22</lastmod>
+    <lastmod>2021-06-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://weiborao.github.io/tags/csr1000v/</loc>
-    <lastmod>2021-02-22</lastmod>
+    <lastmod>2021-06-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://weiborao.github.io/tags/ztp/</loc>
-    <lastmod>2021-02-22</lastmod>
+    <lastmod>2021-06-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://weiborao.github.io/tags/nfvis/</loc>
-    <lastmod>2021-02-22</lastmod>
+    <lastmod>2021-06-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://weiborao.github.io/tags/kvm/</loc>
-    <lastmod>2021-02-22</lastmod>
+    <lastmod>2021-06-17</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://weiborao.github.io/tags/ThousandEyes/</loc>
+    <lastmod>2021-06-17</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://weiborao.github.io/tags/AWS/</loc>
+    <lastmod>2021-06-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>

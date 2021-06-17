@@ -6,7 +6,7 @@
   <link href="https://weiborao.github.io/atom.xml" rel="self"/>
   
   <link href="https://weiborao.github.io/"/>
-  <updated>2021-02-22T06:30:40.658Z</updated>
+  <updated>2021-06-17T13:06:53.306Z</updated>
   <id>https://weiborao.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>在AWS上部署TE Agent并进行测试</title>
+    <link href="https://weiborao.github.io/deploy-thousandeyes-agent-on-aws.html"/>
+    <id>https://weiborao.github.io/deploy-thousandeyes-agent-on-aws.html</id>
+    <published>2021-06-17T13:00:00.000Z</published>
+    <updated>2021-06-17T13:06:53.306Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="ThousandEyes-简介"><a href="#ThousandEyes-简介" class="headerlink" title="ThousandEyes 简介"></a>ThousandEyes 简介</h1><p><a href="https://www.thousandeyes.com/">ThousandEyes</a>是一个网络性能监控的SAAS云服务，结合了各种主动和被动的监控技术，让您深入了解您提供的以及您消费的应用和服务的用户体验。ThousandEyes使用的监控技术包括网络的可达性探测、时延、丢包、抖动、可视化的逐跳路径分析、可视化的BGP路由分析、DNS监控、HTTP服务监控等。ThousandEyes平台对这些监控收集而来的数据进行分析、交叉关联，将涉及用户体验的方方面面，包括网络和应用的状况统一的呈现在同一个界面之下，让您能够轻松的隔离问题，采取行动，从而快速的解决问题。</p><p>ThousandEyes提供了三种Agent进行网络和应用的探测，分别是Cloud Agent、Enterprise Agent和Endpoint Agent。Cloud Agent 由ThousandEyes在全球部署和维护，当前，ThousandEyes在全球200多个城市共部署了400多个<a href="https://www.thousandeyes.com/product/cloud-agents">Cloud Agent</a>，可供全球用户使用。Enterprise Agent由用户自己部署，可以部署为虚拟机或者容器，可以安装在物理硬件，如Intel NCU或者树莓派中，支持Windows、Linux系统，还可以部署在思科或Juniper的网络设备中，也能通过CloudFormation在AWS云中自动部署。Endpoint Agent是浏览器插件，用户在访问网站时，可以自助的使用Endpoint Agent进行测试，由ThousandEyes进行数据分析，从而帮助用户快速了解其数字体验，以及快速定位问题所在。用户可以根据自己的需要来选择一种或多种Agent进行探测，ThousandEyes平台会自动完成分析和展现，提供网络和应用状况的洞见分析。</p><h1 id="在AWS上部署TE-Agent"><a href="#在AWS上部署TE-Agent" class="headerlink" title="在AWS上部署TE Agent"></a>在AWS上部署TE Agent</h1><h2 id="了解部署过程"><a href="#了解部署过程" class="headerlink" title="了解部署过程"></a>了解部署过程</h2><p>在正式部署之前，快速阅读了一下<a href="https://docs.thousandeyes.com/product-documentation/global-vantage-points/enterprise-agents/installing/iaas-enterprise-agent-deployment-amazon-aws">AWS Deployment Guide</a>，部署过程是通过AWS的CloudFormation创建一个Stack，整个过程全部自动化。</p><p>部署的前提是需要设置好SSH Key-pair，VPC网络、公共子网、以及使用CloudFormation部署EC2的权限。</p><p>部署的内容包括：启动基于Ubuntu的EC2实例，并自动安装TE Agent，创建Security Group，并基于最小权限配置Inbound Rules。</p><h2 id="准备SSH-Key-pair"><a href="#准备SSH-Key-pair" class="headerlink" title="准备SSH Key-pair"></a>准备SSH Key-pair</h2><p>首先，在MAC电脑中，执行以下命令，用于创建一个RSA的秘钥对，并将公钥拷贝至桌面。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -f .ssh/aws_kp -m PEM</span><br><span class="line">mv .ssh/aws_kp .ssh/aws_kp.pem</span><br><span class="line">chmod 400 .ssh/aws_kp.pem</span><br><span class="line">cp .ssh/aws_kp.pub ~/Desktop</span><br></pre></td></tr></table></figure><p>登录AWS的Console管理界面后，选择Region，比如us-east-1，定位到EC2—Network Security—Key Pair，在界面右上侧的Actions下拉框中，选择Import key pair，将aws_kp.pub上传。</p><p>在其他的Region，重复上述动作，将key pair上传，这样在多个Region创建的EC2可以使用同一个私钥进行登录。</p><h2 id="在AWS上部署TE-Agent-1"><a href="#在AWS上部署TE-Agent-1" class="headerlink" title="在AWS上部署TE Agent"></a>在AWS上部署TE Agent</h2><p>部署TE Agent的操作路径为：在ThousandEyes的界面中，选择Cloud &amp; Enterprise Agents，再选择Agent Settings，进一步选择Enterprise Agents，点击Add New Enterprise Agent。在右侧出现的界面中，选择IaaS Marketplaces，在该界面中点击Launch in AWS，跳转到AWS的登录界面，并自动进入CloudFormation的界面，该界面已将Stack模板选择好了。</p><p>Stack模板的链接：</p><p><a href="https://s3-us-west-1.amazonaws.com/oneclick-ea.aws.thousandeyes/aws-ea-oneclick.yaml">https://s3-us-west-1.amazonaws.com/oneclick-ea.aws.thousandeyes/aws-ea-oneclick.yaml</a></p><p>该模板包含两个组件：EC2 Instance 和 Security Group。</p><p>按照上文的部署指南填写表单，并点击下一步，直至完成部署。</p><p>在完成安装后，可以使用私钥登录到虚机，注意：用户名为 ubuntu，不是ec2-user 或 root。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -i .ssh/aws_kp.pem -v [ubuntu@](mailto:ubuntu@18.141.230.240)x.x.x.x</span><br></pre></td></tr></table></figure><p>在两个不同的Region，us-east-1 和 ap-southeast-1 分别部署一个TE Agent。</p><p>大约5分钟后，即可在app.thousandeyes.com的界面中看到两个TE Agent上线。</p><h1 id="执行Agent-to-Agent-测试"><a href="#执行Agent-to-Agent-测试" class="headerlink" title="执行Agent to Agent 测试"></a>执行Agent to Agent 测试</h1><p>分别执行两种测试，一个是通过公网IP进行双向测试，一个是创建VPC Peering后，使用私有地址进行测试，比较两者之间的差异。</p><h2 id="通过公网IP地址进行双向测试"><a href="#通过公网IP地址进行双向测试" class="headerlink" title="通过公网IP地址进行双向测试"></a>通过公网IP地址进行双向测试</h2><p>在ThousandEyes的Agent Settings界面中，点击Agent，在右侧的网页中，选择Advanced Settings，将地址设置为Agent的公网IP地址。</p><p>在Test Settings中，选择Add New Test，Layer选择Network，Test Type选择Agent to Agent。</p><p>选择一个Agent作为Target，另一个Agent作为源，测试方向选择双向。</p><p>经过一段时间后，ThousandEyes上即可呈现测试结果。</p><p>测试持续了一个小时左右，测试结果如下：</p><p><strong>AWS us-east-1 to ap-southeast-1 Using Public IP</strong></p><table><thead><tr><th>Items</th><th>Result</th></tr></thead><tbody><tr><td>Loss</td><td>0%</td></tr><tr><td>Latency</td><td>212ms</td></tr><tr><td>Jitter</td><td>&lt;1ms</td></tr><tr><td>Throughput</td><td>55Mbps</td></tr></tbody></table><p>在可视化的路径分析图中，观察到如下信息：</p><ol><li>从us-east-1到ap-southeast-1往返，至少各有三条路径，每条路径显示的跳数约有20跳。</li><li>该测试每隔2分钟测试一次，共测试了25次。在这25次中，鲜有路径一致的，有时候全程没有公共节点，有时候两条、甚至三条路径中间有公共节点。</li><li>可视化路径中，从两侧的Agent出发，均有连续的5个或6个连续未知节点。这是由于这些节点不对Traceroute作出回应，导致路径中不可见。</li><li>在整个可视化路径中，可见的公网节点的IP地址属于<strong>AS 16509</strong>或者<strong>AS 14618</strong>，这两个都是AWS的BGP AS域。其他节点的地址为100.65.x.x或100.100.x.x，这段地址属于<strong>100.64.0.0/10</strong>，为IANA保留地址，用于给运营商使用。由此可以推断，两个Agent之间通讯的报文并未离开过AWS的网络，这也解释了为何上述的时延、抖动是很稳定的值，并且整个测试期间，没有丢包。</li><li>在可视化路径中，我还能发现有的路径是一段MPLS 隧道，并给出了转发时用到的Label值。ThousandEyes是如何发现路径中间有MPLS Tunnel呢？这个是值得仔细思考的问题。经查询，这是通过ThousandEyes的<a href="https://www.thousandeyes.com/pdf/ThousandEyes-Patents.pdf">专利技术Deep Path Analysis (DPA)</a>实现的。</li></ol><h2 id="通过私网IP地址进行双向测试"><a href="#通过私网IP地址进行双向测试" class="headerlink" title="通过私网IP地址进行双向测试"></a>通过私网IP地址进行双向测试</h2><p>本次测试的方法同上，只是需要将Agent的IP地址修改为使用私有IP地址，两个Region的VPC之间建立VPC Peering。</p><p>测试结果如下：</p><p><strong>AWS us-east-1 to ap-southeast-1 Using Private IP</strong></p><table><thead><tr><th>Items</th><th>Result</th></tr></thead><tbody><tr><td>Loss</td><td>0%</td></tr><tr><td>Latency</td><td>212ms</td></tr><tr><td>Jitter</td><td>&lt;1ms</td></tr><tr><td>Throughput</td><td>56Mbps</td></tr></tbody></table><p>在可视化的路径分析图中，观察到如下信息：</p><ul><li>两个Agent之间是直连的，没有任何中间节点，两者之间时延为211ms。</li></ul><p>做完两次测试，第二天检查了一下AWS的账单，预计花费了0.29美金。</p><h2 id="测试结果的共享链接"><a href="#测试结果的共享链接" class="headerlink" title="测试结果的共享链接"></a>测试结果的共享链接</h2><p><a href="https://zwskwtsea.share.thousandeyes.com/">https://zwskwtsea.share.thousandeyes.com/</a></p><p><a href="https://aieajezsh.share.thousandeyes.com/">https://aieajezsh.share.thousandeyes.com/</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;ThousandEyes-简介&quot;&gt;&lt;a href=&quot;#ThousandEyes-简介&quot; class=&quot;headerlink&quot; title=&quot;ThousandEyes 简介&quot;&gt;&lt;/a&gt;ThousandEyes 简介&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://w</summary>
+      
+    
+    
+    
+    
+    <category term="ThousandEyes" scheme="https://weiborao.github.io/tags/ThousandEyes/"/>
+    
+    <category term="AWS" scheme="https://weiborao.github.io/tags/AWS/"/>
+    
+  </entry>
   
   <entry>
     <title>Mastering KVM Virtualization 学习笔记(1)</title>
