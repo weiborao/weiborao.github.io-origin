@@ -36,8 +36,11 @@
 <meta property="og:image" content="https://weiborao.github.io/get-known-traceroute-by-wireshark/dns-query-1.png">
 <meta property="og:image" content="https://weiborao.github.io/get-known-traceroute-by-wireshark/UDP-Probe-2.png">
 <meta property="og:image" content="https://weiborao.github.io/get-known-traceroute-by-wireshark/ICMP-last-reply.png">
+<meta property="og:image" content="https://weiborao.github.io/get-known-traceroute-by-wireshark/whois-query.png">
+<meta property="og:image" content="https://weiborao.github.io/get-known-traceroute-by-wireshark/whois-answer.png">
+<meta property="og:image" content="https://weiborao.github.io/get-known-traceroute-by-wireshark/whois-answer-2.png">
 <meta property="article:published_time" content="2021-06-27T06:50:00.000Z">
-<meta property="article:modified_time" content="2021-06-28T02:21:07.415Z">
+<meta property="article:modified_time" content="2021-06-28T03:23:05.737Z">
 <meta property="article:author" content="Rao Weibo">
 <meta property="article:tag" content="traceroute">
 <meta property="article:tag" content="wireshark">
@@ -192,7 +195,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-06-28 10:21:07" itemprop="dateModified" datetime="2021-06-28T10:21:07+08:00">2021-06-28</time>
+                <time title="修改时间：2021-06-28 11:23:05" itemprop="dateModified" datetime="2021-06-28T11:23:05+08:00">2021-06-28</time>
               </span>
 
           
@@ -284,6 +287,21 @@
 </li>
 </ol>
 <p>以上详细的分析了<strong>traceroute -aq 1 8.8.8.8</strong>的报文收发过程。</p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>在上述的Traceroute完成输出后，Wireshark成功的将Whois的交互报文进行重新组装，并完成内容的解析。</p>
+<p>在Wireshark分析完第133个报文后，Wireshark成功的组装出whois的查询报文，如下：</p>
+<img src="/get-known-traceroute-by-wireshark/whois-query.png" class="" title="whois-query">
+
+<p>在Wireshark分析完第135个报文后，Wireshark成功的组装出Whois的应答报文，如下：</p>
+<img src="/get-known-traceroute-by-wireshark/whois-answer.png" class="" title="whois-answer">
+
+
+
+<p>在Terminal执行whois 8.8.8.8/32，并进行报文抓取，解析出Whois的报文应答如下：</p>
+<img src="/get-known-traceroute-by-wireshark/whois-answer-2.png" class="" title="whois-answer-2">
+
+<p>该报文也是Wireshark 拼装了多个TCP Segment，#101、#103、#104、#106、#109后解析出来的。对比该解析结果和上文中，Traceroute过程中的查询结果，可以发现，报文结构是一致的，都被Wireshark解析成Whois的报文。</p>
+<p>据此，我推测，MAC电脑上的Traceroute 在增加了-a的参数后，会主动发起Whois查询，缺省的Whois服务器是whois.radb.net。</p>
+<p>此部分内容是在Traceroute收发包过程分析完成后，再后知后觉发现的，因此将此部分内容作为“后记”进行记录。</p>
 <h1 id="Traceroute-进阶版工具MTR"><a href="#Traceroute-进阶版工具MTR" class="headerlink" title="Traceroute 进阶版工具MTR"></a>Traceroute 进阶版工具MTR</h1><p>MTR （My Traceroute）工具将ping和traceroute命令的功能并入了同一个工具中，实现更强大的功能。相对于traceroute命令只会做一次链路跟踪测试，mtr命令会对链路上的相关节点做持续探测并给出相应的统计信息。</p>
 <p>如下为MTR的输出：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ sudo mtr -ry 4 8.8.8.8</span><br><span class="line">Start: 2021-06-27T23:37:21+0800</span><br><span class="line">HOST: WERAO-M-40KA                Loss%   Snt   Last   Avg  Best  Wrst StDev</span><br><span class="line">  1. ???        localhost          0.0%    10    1.8   2.2   1.2  10.1   2.8</span><br><span class="line">  2. ???        bogon              0.0%    10    2.2   2.3   1.9   3.3   0.5</span><br><span class="line">  3. 2003-11-19 222.129.32.1       0.0%    10    6.3   9.5   5.0  29.2   7.7</span><br><span class="line">  4. 2000-03-14 61.148.163.181     0.0%    10    5.3   7.4   5.3   8.7   1.2</span><br><span class="line">  5. 2002-04-17 219.232.11.65     70.0%    10    5.4   6.1   5.4   6.8   0.7</span><br><span class="line">  6. 2006-01-09 124.65.194.153    30.0%    10   28.9   9.6   5.7  28.9   8.5</span><br><span class="line">  7. 2002-03-21 219.158.112.26    40.0%    10   38.9  44.2  38.5  63.7   9.7</span><br><span class="line">  8. 2002-03-21 219.158.19.66      0.0%    10   74.4  64.1  46.4  74.4   8.8</span><br><span class="line">  9. 2002-03-21 219.158.97.25      0.0%    10   90.8  90.8  82.2  96.7   4.3</span><br><span class="line"> 10. 2002-03-21 219.158.20.94      0.0%    10   97.5  89.8  74.1 104.6  11.8</span><br><span class="line"> 11. 2002-03-21 219.158.33.174     0.0%    10   73.0  62.1  49.7  74.0   8.5</span><br><span class="line"> 12. 2012-02-07 108.170.241.65     0.0%    10   59.0  67.3  53.1  75.4   7.2</span><br><span class="line"> 13. 2013-04-04 172.253.69.229    10.0%    10   62.9  68.3  54.5  76.6   6.5</span><br><span class="line"> 14. 1992-12-01 dns.google         0.0%    10   71.0  65.6  56.4  71.0   5.7</span><br></pre></td></tr></table></figure>
@@ -827,7 +845,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9D%E8%AF%86Traceroute"><span class="nav-number">1.</span> <span class="nav-text">初识Traceroute</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Traceroute%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">Traceroute的工作原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%9A%E8%BF%87Wireshark%E6%8E%A2%E7%A9%B6Traceroute"><span class="nav-number">3.</span> <span class="nav-text">通过Wireshark探究Traceroute</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8Traceroute%E8%BE%93%E5%87%BA%E7%BB%93%E6%9E%9C%E4%B8%AD%E6%98%BE%E7%A4%BAAS%E5%8F%B7"><span class="nav-number">3.1.</span> <span class="nav-text">在Traceroute输出结果中显示AS号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E8%BF%B0Traceroute%E7%9A%84%E6%94%B6%E5%8F%91%E5%8C%85%E8%BF%87%E7%A8%8B%E7%AE%80%E8%BF%B0"><span class="nav-number">3.2.</span> <span class="nav-text">上述Traceroute的收发包过程简述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Wireshark%E6%8A%93%E5%8C%85%E8%AF%A6%E7%BB%86%E5%88%86%E6%9E%90"><span class="nav-number">3.3.</span> <span class="nav-text">Wireshark抓包详细分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Traceroute-%E8%BF%9B%E9%98%B6%E7%89%88%E5%B7%A5%E5%85%B7MTR"><span class="nav-number">4.</span> <span class="nav-text">Traceroute 进阶版工具MTR</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">5.</span> <span class="nav-text">附录</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9D%E8%AF%86Traceroute"><span class="nav-number">1.</span> <span class="nav-text">初识Traceroute</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Traceroute%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">Traceroute的工作原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%9A%E8%BF%87Wireshark%E6%8E%A2%E7%A9%B6Traceroute"><span class="nav-number">3.</span> <span class="nav-text">通过Wireshark探究Traceroute</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8Traceroute%E8%BE%93%E5%87%BA%E7%BB%93%E6%9E%9C%E4%B8%AD%E6%98%BE%E7%A4%BAAS%E5%8F%B7"><span class="nav-number">3.1.</span> <span class="nav-text">在Traceroute输出结果中显示AS号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E8%BF%B0Traceroute%E7%9A%84%E6%94%B6%E5%8F%91%E5%8C%85%E8%BF%87%E7%A8%8B%E7%AE%80%E8%BF%B0"><span class="nav-number">3.2.</span> <span class="nav-text">上述Traceroute的收发包过程简述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Wireshark%E6%8A%93%E5%8C%85%E8%AF%A6%E7%BB%86%E5%88%86%E6%9E%90"><span class="nav-number">3.3.</span> <span class="nav-text">Wireshark抓包详细分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number">3.4.</span> <span class="nav-text">后记</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Traceroute-%E8%BF%9B%E9%98%B6%E7%89%88%E5%B7%A5%E5%85%B7MTR"><span class="nav-number">4.</span> <span class="nav-text">Traceroute 进阶版工具MTR</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">5.</span> <span class="nav-text">附录</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
