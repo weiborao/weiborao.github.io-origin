@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://weiborao.github.io/get-known-traceroute-by-wireshark/UDP-Probe-2.png">
 <meta property="og:image" content="https://weiborao.github.io/get-known-traceroute-by-wireshark/ICMP-last-reply.png">
 <meta property="article:published_time" content="2021-06-27T06:50:00.000Z">
-<meta property="article:modified_time" content="2021-06-28T02:16:22.756Z">
+<meta property="article:modified_time" content="2021-06-28T02:21:07.415Z">
 <meta property="article:author" content="Rao Weibo">
 <meta property="article:tag" content="traceroute">
 <meta property="article:tag" content="wireshark">
@@ -192,7 +192,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-06-28 10:16:22" itemprop="dateModified" datetime="2021-06-28T10:16:22+08:00">2021-06-28</time>
+                <time title="修改时间：2021-06-28 10:21:07" itemprop="dateModified" datetime="2021-06-28T10:21:07+08:00">2021-06-28</time>
               </span>
 
           
@@ -240,7 +240,7 @@
 <h1 id="通过Wireshark探究Traceroute"><a href="#通过Wireshark探究Traceroute" class="headerlink" title="通过Wireshark探究Traceroute"></a>通过Wireshark探究Traceroute</h1><h2 id="在Traceroute输出结果中显示AS号"><a href="#在Traceroute输出结果中显示AS号" class="headerlink" title="在Traceroute输出结果中显示AS号"></a>在Traceroute输出结果中显示AS号</h2><p>在Mac电脑的Traceroute命令中，通过’-a’的参数可以开启路径中遇到的IP地址所在的BGP AS号，以便于获知路径中每一跳所归属的运营商，通过’-q 1’可将缺省发送3个探测报文改为发送1个探测报文，输出示例如下：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ traceroute -aq 1 8.8.8.8</span><br><span class="line">traceroute to 8.8.8.8 (8.8.8.8), 64 hops max, 52 byte packets</span><br><span class="line"> 1  [AS0] bogon (10.39.101.1)  2.424 ms</span><br><span class="line"> 2  [AS0] localhost (192.168.1.1)  3.031 ms</span><br><span class="line"> 3  [AS4808] 222.129.32.1 (222.129.32.1)  6.496 ms</span><br><span class="line"> 4  [AS4808] 61.51.101.101 (61.51.101.101)  8.114 ms</span><br><span class="line"> 5  [AS17431] 219.232.11.29 (219.232.11.29)  5.865 ms</span><br><span class="line"> 6  [AS4808] 202.96.12.13 (202.96.12.13)  6.558 ms</span><br><span class="line"> 7  [AS4837] 219.158.112.46 (219.158.112.46)  44.826 ms</span><br><span class="line"> 8  [AS4837] 219.158.103.218 (219.158.103.218)  52.181 ms</span><br><span class="line"> 9  [AS4837] 219.158.103.30 (219.158.103.30)  47.851 ms</span><br><span class="line">10  [AS4837] 219.158.10.30 (219.158.10.30)  56.963 ms</span><br><span class="line">11  [AS4837] 219.158.33.174 (219.158.33.174)  46.523 ms</span><br><span class="line">12  [AS15169] 108.170.241.1 (108.170.241.1)  48.503 ms</span><br><span class="line">13  [AS15169] 172.253.64.111 (172.253.64.111)  142.926 ms</span><br><span class="line">14  [AS15169] dns.google (8.8.8.8)  52.208 ms</span><br></pre></td></tr></table></figure>
 <p>上述的AS编号信息是如何获得的？下面我们通过Wireshark抓取报文进行分析。</p>
-<h2 id="上述Traceroute的收发包过程简述"><a href="#上述Traceroute的收发包过程简述" class="headerlink" title="上述Traceroute的收发包过程简述"></a>上述Traceroute的收发包过程简述</h2><p>开启Wireshark，并迅速执行<strong>traceroute -aq 1 8.8.8.8</strong>，Traceroute完整输出后，停止Wireshark的报文抓取。<br>针对抓取的报文进行过滤，在过滤框中输入 <em>udp or icmp ip.addr == 198.108.0.18</em><br>经过Wireshark的报文分析，以下为Traceroute的简要的收发包过程：</p>
+<h2 id="上述Traceroute的收发包过程简述"><a href="#上述Traceroute的收发包过程简述" class="headerlink" title="上述Traceroute的收发包过程简述"></a>上述Traceroute的收发包过程简述</h2><p>开启Wireshark，并迅速执行<strong>traceroute -aq 1 8.8.8.8</strong>，Traceroute完整输出后，停止Wireshark的报文抓取。<br>针对抓取的报文进行过滤，在过滤框中输入 <strong>udp or icmp or ip.addr == 198.108.0.18</strong><br>经过Wireshark的报文分析，以下为Traceroute的简要的收发包过程：</p>
 <ol>
 <li>发起DNS查询，查询<strong>whois.radb.net</strong>域名，得到应答为198.108.0.18—-上述过滤器中IP地址来源于此。</li>
 <li>发起TCP连接请求，与198.108.0.18建立TCP连接。</li>
