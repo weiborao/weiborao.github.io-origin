@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://weiborao.github.io/get-known-traceroute-by-wireshark/UDP-Probe-2.png">
 <meta property="og:image" content="https://weiborao.github.io/get-known-traceroute-by-wireshark/ICMP-last-reply.png">
 <meta property="article:published_time" content="2021-06-27T06:50:00.000Z">
-<meta property="article:modified_time" content="2021-06-27T15:59:08.731Z">
+<meta property="article:modified_time" content="2021-06-28T02:16:22.756Z">
 <meta property="article:author" content="Rao Weibo">
 <meta property="article:tag" content="traceroute">
 <meta property="article:tag" content="wireshark">
@@ -184,10 +184,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-06-27 14:50:00 / 修改时间：23:59:08" itemprop="dateCreated datePublished" datetime="2021-06-27T14:50:00+08:00">2021-06-27</time>
+              <time title="创建时间：2021-06-27 14:50:00" itemprop="dateCreated datePublished" datetime="2021-06-27T14:50:00+08:00">2021-06-27</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-06-28 10:16:22" itemprop="dateModified" datetime="2021-06-28T10:16:22+08:00">2021-06-28</time>
+              </span>
 
           
             <div class="post-description">本文对Traceroute的工作原理进行分析，介绍Traceroute在输出结果中显示AS号的功能参数，并通过Wireshark抓包分析MAC电脑上Traceroute的工作收发包过程，从而重新认识Traceroute；在此基础上，介绍Traceroute的进阶工具MTR。</div>
@@ -203,12 +209,12 @@
       
         <h1 id="初识Traceroute"><a href="#初识Traceroute" class="headerlink" title="初识Traceroute"></a>初识Traceroute</h1><p>Traceroute是一种常见的网络分析工具，用于探测数据包从源地址到目的地址经过的路由器的IP地址。</p>
 <p>以下的示例显示从一个MAC电脑到8.8.8.8的路径探测结果：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ traceroute 8.8.8.8</span><br><span class="line">traceroute to 8.8.8.8 (8.8.8.8), 64 hops max, 52 byte packets</span><br><span class="line"> 1  localhost (10.39.101.1)  8.662 ms  1.307 ms  1.155 ms</span><br><span class="line"> 2  localhost (192.168.1.1)  2.287 ms  2.157 ms  1.897 ms</span><br><span class="line"> 3  222.129.32.1 (222.129.32.1)  5.844 ms  13.092 ms  10.332 ms</span><br><span class="line"> 4  114.244.95.105 (114.244.95.105)  7.541 ms</span><br><span class="line">    61.51.101.101 (61.51.101.101)  7.420 ms</span><br><span class="line">    61.148.163.81 (61.148.163.81)  7.075 ms</span><br><span class="line"> 5  61.148.4.213 (61.148.4.213)  7.759 ms</span><br><span class="line">    219.232.11.65 (219.232.11.65)  5.976 ms</span><br><span class="line">    bt-230-081.bta.net.cn (202.106.230.81)  6.021 ms</span><br><span class="line"> 6  202.96.12.13 (202.96.12.13)  7.828 ms * *</span><br><span class="line"> 7  219.158.112.26 (219.158.112.26)  39.486 ms *</span><br><span class="line">    219.158.7.22 (219.158.7.22)  45.959 ms</span><br><span class="line"> 8  219.158.103.218 (219.158.103.218)  48.469 ms</span><br><span class="line">    219.158.97.2 (219.158.97.2)  47.146 ms</span><br><span class="line">    219.158.103.218 (219.158.103.218)  50.320 ms</span><br><span class="line"> 9  219.158.103.30 (219.158.103.30)  50.739 ms  50.382 ms  48.348 ms</span><br><span class="line">10  219.158.10.30 (219.158.10.30)  49.927 ms  44.264 ms  56.353 ms</span><br><span class="line">11  219.158.33.174 (219.158.33.174)  54.123 ms  61.131 ms  47.302 ms</span><br><span class="line">12  108.170.241.97 (108.170.241.97)  56.082 ms</span><br><span class="line">    108.170.241.33 (108.170.241.33)  52.942 ms  54.393 ms</span><br><span class="line">13  142.250.58.189 (142.250.58.189)  48.958 ms</span><br><span class="line">    209.85.143.37 (209.85.143.37)  51.217 ms</span><br><span class="line">    108.170.226.115 (108.170.226.115)  141.544 ms</span><br><span class="line">14  dns.google (8.8.8.8)  48.935 ms  46.364 ms  51.043 ms</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ traceroute 8.8.8.8</span><br><span class="line">traceroute to 8.8.8.8 (8.8.8.8), 64 hops max, 52 byte packets</span><br><span class="line"> 1  localhost (10.39.101.1)  8.662 ms  1.307 ms  1.155 ms</span><br><span class="line"> 2  localhost (192.168.1.1)  2.287 ms  2.157 ms  1.897 ms</span><br><span class="line"> 3  222.129.32.1 (222.129.32.1)  5.844 ms  13.092 ms  10.332 ms</span><br><span class="line"> 4  114.244.95.105 (114.244.95.105)  7.541 ms</span><br><span class="line">    61.51.101.101 (61.51.101.101)  7.420 ms</span><br><span class="line">    61.148.163.81 (61.148.163.81)  7.075 ms</span><br><span class="line"> 5  61.148.4.213 (61.148.4.213)  7.759 ms</span><br><span class="line">    219.232.11.65 (219.232.11.65)  5.976 ms</span><br><span class="line">    bt-230-081.bta.net.cn (202.106.230.81)  6.021 ms</span><br><span class="line"> 6  202.96.12.13 (202.96.12.13)  7.828 ms * *</span><br><span class="line"> 7  219.158.112.26 (219.158.112.26)  39.486 ms *</span><br><span class="line">    219.158.7.22 (219.158.7.22)  45.959 ms</span><br><span class="line"> 8  219.158.103.218 (219.158.103.218)  48.469 ms</span><br><span class="line">    219.158.97.2 (219.158.97.2)  47.146 ms</span><br><span class="line">    219.158.103.218 (219.158.103.218)  50.320 ms</span><br><span class="line"> 9  219.158.103.30 (219.158.103.30)  50.739 ms  50.382 ms  48.348 ms</span><br><span class="line">10  219.158.10.30 (219.158.10.30)  49.927 ms  44.264 ms  56.353 ms</span><br><span class="line">11  219.158.33.174 (219.158.33.174)  54.123 ms  61.131 ms  47.302 ms</span><br><span class="line">12  108.170.241.97 (108.170.241.97)  56.082 ms</span><br><span class="line">    108.170.241.33 (108.170.241.33)  52.942 ms  54.393 ms</span><br><span class="line">13  142.250.58.189 (142.250.58.189)  48.958 ms</span><br><span class="line">    209.85.143.37 (209.85.143.37)  51.217 ms</span><br><span class="line">    108.170.226.115 (108.170.226.115)  141.544 ms</span><br><span class="line">14  dns.google (8.8.8.8)  48.935 ms  46.364 ms  51.043 ms</span><br><span class="line"></span><br><span class="line">➜  ~ ping 8.8.8.8</span><br><span class="line">PING 8.8.8.8 (8.8.8.8): 56 data bytes</span><br><span class="line">64 bytes from 8.8.8.8: icmp_seq=0 ttl=113 time=52.060 ms</span><br><span class="line">64 bytes from 8.8.8.8: icmp_seq=1 ttl=113 time=44.845 ms</span><br><span class="line">64 bytes from 8.8.8.8: icmp_seq=2 ttl=113 time=52.393 ms</span><br><span class="line">64 bytes from 8.8.8.8: icmp_seq=3 ttl=113 time=51.059 ms</span><br><span class="line">64 bytes from 8.8.8.8: icmp_seq=4 ttl=113 time=44.437 ms</span><br><span class="line">64 bytes from 8.8.8.8: icmp_seq=5 ttl=113 time=44.534 ms</span><br><span class="line">^C</span><br><span class="line">--- 8.8.8.8 ping statistics ---</span><br><span class="line">6 packets transmitted, 6 packets received, 0.0% packet loss</span><br><span class="line">round-trip min/avg/max/stddev = 44.437/48.221/52.393/3.640 ms</span><br></pre></td></tr></table></figure>
 <p>输出结果表明：</p>
 <ol>
 <li>从MAC电脑到8.8.8.8的路径包含14个网络节点。</li>
-<li>每个节点后面都显示时延信息，表明从MAC电脑到该节点的往返时延；Traceroute对每一个节点发出3个探测报文，每个报文的路径不尽相同，例如在第4、5、7、8、12、13跳经过不同的路由器转发。</li>
-<li>有的探测没有得到回应，因此在有的节点本应显示时延信息的，显示了==*==。这并不能断定中间的网络不可达，很可能的原因是该节点的路由器在接口上配置了 <strong><em>no ip unreachable</em></strong> 命令，该接口不回应ICMP Unreachable消息，而该消息正是Traceroute探测路径所依赖的信息来源。</li>
+<li>每个节点后面都显示时延信息，表明从MAC电脑到该节点的往返时延。您可能会发现，中间的某些节点往返时延可能要高于更远的节点的往返时延。这是由于该时延包含了路由器将TTL=0的报文交给控制面处理的时延，因而往往比路径上的传播时延要高，尤其是当控制面CPU繁忙时。Traceroute对每一个节点发出3个探测报文，每个报文的路径不尽相同，例如在第4、5、7、8、12、13跳经过不同的路由器转发。</li>
+<li>有的探测没有得到回应，因此在有的节点本应显示时延信息的，显示了*。这并不能断定中间的网络不可达，很可能的原因是该节点的路由器在接口上配置了 <strong><em>no ip unreachable</em></strong> 命令，该接口不回应ICMP Unreachable消息，而该消息正是Traceroute探测路径所依赖的信息来源。</li>
 </ol>
 <p>接下来，我们简要描述一下，在MAC电脑下，Traceroute的工作原理，并使用Wireshark进一步的探究Traceroute的工作过程。</p>
 <h1 id="Traceroute的工作原理"><a href="#Traceroute的工作原理" class="headerlink" title="Traceroute的工作原理"></a>Traceroute的工作原理</h1><p>每当IP数据包经过一个路由器，其存活时间TTL就会减1。当其存活时间是0时，主机便取消数据包，并发送一个ICMP TTL超时数据包给原数据包的发出者。Traceroute程序通过向目的地址发送一系列的探测包，设置探测包的TTL初始值分别为1,2,3…，根据返回的超时通知（ICMP Time Exceeded Message）得到源地址与目的地址之间的每一跳路由信息。</p>
@@ -269,7 +275,7 @@
 <li><p>第14~17报文是DNS解析报文，分别对主机名WERAO-M-40KA进行域名解析，以及对网关IP 10.39.101.1进行反向域名解析，由于是私有主机名和私有地址，自然公网DNS是解析不出来。以下将针对8.8.8.8进行反向域名解析为dns.google的截图作为示例：</p>
 <img src="/get-known-traceroute-by-wireshark/dns-query-1.png" class="" title="dns-query-1">
 </li>
-<li><p>报文18<del>26重复报文7</del>17的过程，其中报文18的TTL为2，如下：</p>
+<li><p>报文18~26重复报文7~17的过程，其中报文18的TTL为2，如下：</p>
 <img src="/get-known-traceroute-by-wireshark/UDP-Probe-2.png" class="" title="UDP-Probe-2">
 
 <p>过程持续至8.8.8.8返回Code: 3 (Port unreachable)的消息，并对8.8.8.8进行反向域名解析。</p>
@@ -284,7 +290,7 @@
 <p>MTR命令，通过-r 输出报告，-z 可输出地址所在的AS号，-y 4 可输出该地址的分配时间。</p>
 <p>输出信息解释如下：</p>
 <ul>
-<li>第一列（Host）：节点IP地址和域名。如前面所示，按n键可以切换显示。</li>
+<li>第一列（Host）：节点IP地址和域名。</li>
 <li>第二列（Loss%）：节点丢包率。</li>
 <li>第三列（Snt）：每秒发送数据包数。默认值是10，可以通过参数“-c”指定。</li>
 <li>第四列（Last）：最近一次的探测延迟值。</li>
