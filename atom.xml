@@ -3,11 +3,11 @@
   <title>Rao Weibo的博客</title>
   
   
-  <link href="https://weiborao.github.io/atom.xml" rel="self"/>
+  <link href="https://weiborao.link/atom.xml" rel="self"/>
   
-  <link href="https://weiborao.github.io/"/>
+  <link href="https://weiborao.link/"/>
   <updated>2021-07-06T06:10:58.348Z</updated>
-  <id>https://weiborao.github.io/</id>
+  <id>https://weiborao.link/</id>
   
   <author>
     <name>Rao Weibo</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>有关AnyCast</title>
-    <link href="https://weiborao.github.io/anycast-brief.html"/>
-    <id>https://weiborao.github.io/anycast-brief.html</id>
+    <link href="https://weiborao.link/anycast-brief.html"/>
+    <id>https://weiborao.link/anycast-brief.html</id>
     <published>2021-07-06T06:00:00.000Z</published>
     <updated>2021-07-06T06:10:58.348Z</updated>
     
@@ -35,14 +35,14 @@
     
     
     
-    <category term="anycast" scheme="https://weiborao.github.io/tags/anycast/"/>
+    <category term="anycast" scheme="https://weiborao.link/tags/anycast/"/>
     
   </entry>
   
   <entry>
     <title>在Docker容器中tcpdump抓包探秘Traceroute</title>
-    <link href="https://weiborao.github.io/docker-traceroute-tcpdump.html"/>
-    <id>https://weiborao.github.io/docker-traceroute-tcpdump.html</id>
+    <link href="https://weiborao.link/docker-traceroute-tcpdump.html"/>
+    <id>https://weiborao.link/docker-traceroute-tcpdump.html</id>
     <published>2021-06-29T07:20:00.000Z</published>
     <updated>2021-06-29T14:19:26.631Z</updated>
     
@@ -54,18 +54,18 @@
     
     
     
-    <category term="traceroute" scheme="https://weiborao.github.io/tags/traceroute/"/>
+    <category term="traceroute" scheme="https://weiborao.link/tags/traceroute/"/>
     
-    <category term="docker" scheme="https://weiborao.github.io/tags/docker/"/>
+    <category term="docker" scheme="https://weiborao.link/tags/docker/"/>
     
-    <category term="tcpdump" scheme="https://weiborao.github.io/tags/tcpdump/"/>
+    <category term="tcpdump" scheme="https://weiborao.link/tags/tcpdump/"/>
     
   </entry>
   
   <entry>
     <title>通过Wireshark重新认识Traceroute</title>
-    <link href="https://weiborao.github.io/get-known-traceroute-by-wireshark.html"/>
-    <id>https://weiborao.github.io/get-known-traceroute-by-wireshark.html</id>
+    <link href="https://weiborao.link/get-known-traceroute-by-wireshark.html"/>
+    <id>https://weiborao.link/get-known-traceroute-by-wireshark.html</id>
     <published>2021-06-27T06:50:00.000Z</published>
     <updated>2021-06-28T06:15:06.568Z</updated>
     
@@ -77,16 +77,16 @@
     
     
     
-    <category term="traceroute" scheme="https://weiborao.github.io/tags/traceroute/"/>
+    <category term="traceroute" scheme="https://weiborao.link/tags/traceroute/"/>
     
-    <category term="wireshark" scheme="https://weiborao.github.io/tags/wireshark/"/>
+    <category term="wireshark" scheme="https://weiborao.link/tags/wireshark/"/>
     
   </entry>
   
   <entry>
     <title>在AWS上部署TE Agent并进行测试</title>
-    <link href="https://weiborao.github.io/deploy-thousandeyes-agent-on-aws.html"/>
-    <id>https://weiborao.github.io/deploy-thousandeyes-agent-on-aws.html</id>
+    <link href="https://weiborao.link/deploy-thousandeyes-agent-on-aws.html"/>
+    <id>https://weiborao.link/deploy-thousandeyes-agent-on-aws.html</id>
     <published>2021-06-17T13:00:00.000Z</published>
     <updated>2021-06-17T13:06:53.306Z</updated>
     
@@ -101,16 +101,16 @@
     
     
     
-    <category term="ThousandEyes" scheme="https://weiborao.github.io/tags/ThousandEyes/"/>
+    <category term="ThousandEyes" scheme="https://weiborao.link/tags/ThousandEyes/"/>
     
-    <category term="AWS" scheme="https://weiborao.github.io/tags/AWS/"/>
+    <category term="AWS" scheme="https://weiborao.link/tags/AWS/"/>
     
   </entry>
   
   <entry>
     <title>Mastering KVM Virtualization 学习笔记(1)</title>
-    <link href="https://weiborao.github.io/master-kvm-notes-1.html"/>
-    <id>https://weiborao.github.io/master-kvm-notes-1.html</id>
+    <link href="https://weiborao.link/master-kvm-notes-1.html"/>
+    <id>https://weiborao.link/master-kvm-notes-1.html</id>
     <published>2021-02-22T06:23:47.000Z</published>
     <updated>2021-02-22T06:30:40.658Z</updated>
     
@@ -122,70 +122,58 @@
     
     
     
-    <category term="kvm" scheme="https://weiborao.github.io/tags/kvm/"/>
+    <category term="kvm" scheme="https://weiborao.link/tags/kvm/"/>
     
   </entry>
   
   <entry>
     <title>Cisco NFVIS CSR1Kv ZTP Onboarding for SDWAN</title>
-    <link href="https://weiborao.github.io/csr1kv-nfvis-ztp-demo.html"/>
-    <id>https://weiborao.github.io/csr1kv-nfvis-ztp-demo.html</id>
+    <link href="https://weiborao.link/csr1kv-nfvis-ztp-demo.html"/>
+    <id>https://weiborao.link/csr1kv-nfvis-ztp-demo.html</id>
     <published>2021-02-08T03:02:43.000Z</published>
-    <updated>2021-02-08T03:06:04.401Z</updated>
+    <updated>2021-09-17T06:27:54.266Z</updated>
     
     <content type="html"><![CDATA[<div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">    <iframe src="//player.bilibili.com/player.html?aid=544065936&bvid=BV1Zv4y1o7YJ&cid=294265132&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;">    </iframe></div>]]></content>
     
     
-      
-      
-    <summary type="html">
-
-&lt;div style=&quot;position: relative; width: 100%; height: 0; padding-bottom: 75%;&quot;&gt;
-    &lt;iframe src=&quot;//player.bilibili.com/player.html?aid=5440</summary>
-      
+    <summary type="html">本视频演示在Cisco NFVIS平台上零配置上线CSR1000v，并完成SDWAN的配置。</summary>
     
     
     
     
-    <category term="ztp" scheme="https://weiborao.github.io/tags/ztp/"/>
+    <category term="ztp" scheme="https://weiborao.link/tags/ztp/"/>
     
-    <category term="nfvis" scheme="https://weiborao.github.io/tags/nfvis/"/>
+    <category term="nfvis" scheme="https://weiborao.link/tags/nfvis/"/>
     
   </entry>
   
   <entry>
     <title>Cisco CSR 1000v &amp; Catalyst 8000v KVM SRIOV安装设置演示</title>
-    <link href="https://weiborao.github.io/csr1kv-kvm-sriov-ubuntu-demo.html"/>
-    <id>https://weiborao.github.io/csr1kv-kvm-sriov-ubuntu-demo.html</id>
+    <link href="https://weiborao.link/csr1kv-kvm-sriov-ubuntu-demo.html"/>
+    <id>https://weiborao.link/csr1kv-kvm-sriov-ubuntu-demo.html</id>
     <published>2021-02-08T02:36:08.000Z</published>
-    <updated>2021-02-08T03:12:51.946Z</updated>
+    <updated>2021-09-17T06:29:03.172Z</updated>
     
     <content type="html"><![CDATA[<div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">    <iframe src="//player.bilibili.com/player.html?aid=501530216&bvid=BV1VN411R75t&cid=294248612&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;">    </iframe></div><p>鸣谢：<a href="https://rongtianjie.github.io/">Johnny Rong</a> <a href="https://rongtianjie.github.io/2019/03/15/2019-03-15-HEXO%E4%B8%AD%E6%B7%BB%E5%8A%A0B%E7%AB%99%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE%E5%99%A8/">Hexo博客中添加B站视频播放器</a> </p>]]></content>
     
     
-      
-      
-    <summary type="html">
-
-&lt;div style=&quot;position: relative; width: 100%; height: 0; padding-bottom: 75%;&quot;&gt;
-    &lt;iframe src=&quot;//player.bilibili.com/player.html?aid=5015</summary>
-      
+    <summary type="html">本视频演示在 Ubuntu 20.0 版本上安装 KVM，并安装和设置 CSR 1000v/Catalyst 8000v 的指南，内容包括 SRIOV，KVM 调优以及 CSR1KV 初始化配置等内容。</summary>
     
     
     
     
-    <category term="sriov" scheme="https://weiborao.github.io/tags/sriov/"/>
+    <category term="sriov" scheme="https://weiborao.link/tags/sriov/"/>
     
-    <category term="csr1000v" scheme="https://weiborao.github.io/tags/csr1000v/"/>
+    <category term="csr1000v" scheme="https://weiborao.link/tags/csr1000v/"/>
     
-    <category term="ztp" scheme="https://weiborao.github.io/tags/ztp/"/>
+    <category term="ztp" scheme="https://weiborao.link/tags/ztp/"/>
     
   </entry>
   
   <entry>
     <title>Hexo 安装设置遇到的问题及解决办法</title>
-    <link href="https://weiborao.github.io/hexo-setup-log-md.html"/>
-    <id>https://weiborao.github.io/hexo-setup-log-md.html</id>
+    <link href="https://weiborao.link/hexo-setup-log-md.html"/>
+    <id>https://weiborao.link/hexo-setup-log-md.html</id>
     <published>2021-02-07T15:36:19.000Z</published>
     <updated>2021-02-08T15:43:30.966Z</updated>
     
@@ -197,14 +185,14 @@
     
     
     
-    <category term="hexo" scheme="https://weiborao.github.io/tags/hexo/"/>
+    <category term="hexo" scheme="https://weiborao.link/tags/hexo/"/>
     
   </entry>
   
   <entry>
     <title>Cisco CSR1000v KVM SRIOV Setting Guide on Ubuntu 20.04 With NetworkManager</title>
-    <link href="https://weiborao.github.io/csr1kv-kvm-Ubuntu20-04-md.html"/>
-    <id>https://weiborao.github.io/csr1kv-kvm-Ubuntu20-04-md.html</id>
+    <link href="https://weiborao.link/csr1kv-kvm-Ubuntu20-04-md.html"/>
+    <id>https://weiborao.link/csr1kv-kvm-Ubuntu20-04-md.html</id>
     <published>2021-02-03T14:37:33.000Z</published>
     <updated>2021-02-08T03:38:30.670Z</updated>
     
@@ -216,20 +204,20 @@
     
     
     
-    <category term="CSR1000v" scheme="https://weiborao.github.io/tags/CSR1000v/"/>
+    <category term="CSR1000v" scheme="https://weiborao.link/tags/CSR1000v/"/>
     
-    <category term="KVM" scheme="https://weiborao.github.io/tags/KVM/"/>
+    <category term="KVM" scheme="https://weiborao.link/tags/KVM/"/>
     
-    <category term="SRIOV" scheme="https://weiborao.github.io/tags/SRIOV/"/>
+    <category term="SRIOV" scheme="https://weiborao.link/tags/SRIOV/"/>
     
-    <category term="NetworkManager" scheme="https://weiborao.github.io/tags/NetworkManager/"/>
+    <category term="NetworkManager" scheme="https://weiborao.link/tags/NetworkManager/"/>
     
   </entry>
   
   <entry>
     <title>CSR 1000v KVM SRIOV CentOS 7安装设置指南</title>
-    <link href="https://weiborao.github.io/csr1kv-kvm-CentOS7.html"/>
-    <id>https://weiborao.github.io/csr1kv-kvm-CentOS7.html</id>
+    <link href="https://weiborao.link/csr1kv-kvm-CentOS7.html"/>
+    <id>https://weiborao.link/csr1kv-kvm-CentOS7.html</id>
     <published>2021-02-03T05:58:32.000Z</published>
     <updated>2021-02-05T05:57:29.431Z</updated>
     
@@ -241,15 +229,15 @@
     
     
     
-    <category term="CSR1000v" scheme="https://weiborao.github.io/tags/CSR1000v/"/>
+    <category term="CSR1000v" scheme="https://weiborao.link/tags/CSR1000v/"/>
     
-    <category term="KVM" scheme="https://weiborao.github.io/tags/KVM/"/>
+    <category term="KVM" scheme="https://weiborao.link/tags/KVM/"/>
     
-    <category term="SRIOV" scheme="https://weiborao.github.io/tags/SRIOV/"/>
+    <category term="SRIOV" scheme="https://weiborao.link/tags/SRIOV/"/>
     
-    <category term="NetworkManager" scheme="https://weiborao.github.io/tags/NetworkManager/"/>
+    <category term="NetworkManager" scheme="https://weiborao.link/tags/NetworkManager/"/>
     
-    <category term="Cisco" scheme="https://weiborao.github.io/tags/Cisco/"/>
+    <category term="Cisco" scheme="https://weiborao.link/tags/Cisco/"/>
     
   </entry>
   

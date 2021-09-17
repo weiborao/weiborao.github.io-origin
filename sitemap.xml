@@ -2,70 +2,70 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://weiborao.github.io/anycast-brief.html</loc>
+    <loc>https://weiborao.link/csr1kv-kvm-sriov-ubuntu-demo.html</loc>
+    
+    <lastmod>2021-09-17</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://weiborao.link/csr1kv-nfvis-ztp-demo.html</loc>
+    
+    <lastmod>2021-09-17</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://weiborao.link/anycast-brief.html</loc>
     
     <lastmod>2021-07-06</lastmod>
     
   </url>
   
   <url>
-    <loc>https://weiborao.github.io/docker-traceroute-tcpdump.html</loc>
+    <loc>https://weiborao.link/docker-traceroute-tcpdump.html</loc>
     
     <lastmod>2021-06-29</lastmod>
     
   </url>
   
   <url>
-    <loc>https://weiborao.github.io/get-known-traceroute-by-wireshark.html</loc>
+    <loc>https://weiborao.link/get-known-traceroute-by-wireshark.html</loc>
     
     <lastmod>2021-06-28</lastmod>
     
   </url>
   
   <url>
-    <loc>https://weiborao.github.io/deploy-thousandeyes-agent-on-aws.html</loc>
+    <loc>https://weiborao.link/deploy-thousandeyes-agent-on-aws.html</loc>
     
     <lastmod>2021-06-17</lastmod>
     
   </url>
   
   <url>
-    <loc>https://weiborao.github.io/master-kvm-notes-1.html</loc>
+    <loc>https://weiborao.link/master-kvm-notes-1.html</loc>
     
     <lastmod>2021-02-22</lastmod>
     
   </url>
   
   <url>
-    <loc>https://weiborao.github.io/hexo-setup-log-md.html</loc>
+    <loc>https://weiborao.link/hexo-setup-log-md.html</loc>
     
     <lastmod>2021-02-08</lastmod>
     
   </url>
   
   <url>
-    <loc>https://weiborao.github.io/csr1kv-kvm-Ubuntu20-04-md.html</loc>
+    <loc>https://weiborao.link/csr1kv-kvm-Ubuntu20-04-md.html</loc>
     
     <lastmod>2021-02-08</lastmod>
     
   </url>
   
   <url>
-    <loc>https://weiborao.github.io/csr1kv-kvm-sriov-ubuntu-demo.html</loc>
-    
-    <lastmod>2021-02-08</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://weiborao.github.io/csr1kv-nfvis-ztp-demo.html</loc>
-    
-    <lastmod>2021-02-08</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://weiborao.github.io/csr1kv-kvm-CentOS7.html</loc>
+    <loc>https://weiborao.link/csr1kv-kvm-CentOS7.html</loc>
     
     <lastmod>2021-02-05</lastmod>
     
@@ -73,135 +73,135 @@
   
 
   <url>
-    <loc>https://weiborao.github.io/</loc>
-    <lastmod>2021-07-06</lastmod>
+    <loc>https://weiborao.link/</loc>
+    <lastmod>2021-09-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   
   <url>
-    <loc>https://weiborao.github.io/tags/CSR1000v/</loc>
-    <lastmod>2021-07-06</lastmod>
+    <loc>https://weiborao.link/tags/CSR1000v/</loc>
+    <lastmod>2021-09-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://weiborao.github.io/tags/KVM/</loc>
-    <lastmod>2021-07-06</lastmod>
+    <loc>https://weiborao.link/tags/KVM/</loc>
+    <lastmod>2021-09-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://weiborao.github.io/tags/SRIOV/</loc>
-    <lastmod>2021-07-06</lastmod>
+    <loc>https://weiborao.link/tags/SRIOV/</loc>
+    <lastmod>2021-09-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://weiborao.github.io/tags/NetworkManager/</loc>
-    <lastmod>2021-07-06</lastmod>
+    <loc>https://weiborao.link/tags/NetworkManager/</loc>
+    <lastmod>2021-09-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://weiborao.github.io/tags/Cisco/</loc>
-    <lastmod>2021-07-06</lastmod>
+    <loc>https://weiborao.link/tags/Cisco/</loc>
+    <lastmod>2021-09-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://weiborao.github.io/tags/hexo/</loc>
-    <lastmod>2021-07-06</lastmod>
+    <loc>https://weiborao.link/tags/hexo/</loc>
+    <lastmod>2021-09-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://weiborao.github.io/tags/sriov/</loc>
-    <lastmod>2021-07-06</lastmod>
+    <loc>https://weiborao.link/tags/sriov/</loc>
+    <lastmod>2021-09-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://weiborao.github.io/tags/csr1000v/</loc>
-    <lastmod>2021-07-06</lastmod>
+    <loc>https://weiborao.link/tags/csr1000v/</loc>
+    <lastmod>2021-09-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://weiborao.github.io/tags/ztp/</loc>
-    <lastmod>2021-07-06</lastmod>
+    <loc>https://weiborao.link/tags/ztp/</loc>
+    <lastmod>2021-09-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://weiborao.github.io/tags/nfvis/</loc>
-    <lastmod>2021-07-06</lastmod>
+    <loc>https://weiborao.link/tags/nfvis/</loc>
+    <lastmod>2021-09-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://weiborao.github.io/tags/kvm/</loc>
-    <lastmod>2021-07-06</lastmod>
+    <loc>https://weiborao.link/tags/kvm/</loc>
+    <lastmod>2021-09-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://weiborao.github.io/tags/ThousandEyes/</loc>
-    <lastmod>2021-07-06</lastmod>
+    <loc>https://weiborao.link/tags/ThousandEyes/</loc>
+    <lastmod>2021-09-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://weiborao.github.io/tags/AWS/</loc>
-    <lastmod>2021-07-06</lastmod>
+    <loc>https://weiborao.link/tags/AWS/</loc>
+    <lastmod>2021-09-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://weiborao.github.io/tags/traceroute/</loc>
-    <lastmod>2021-07-06</lastmod>
+    <loc>https://weiborao.link/tags/traceroute/</loc>
+    <lastmod>2021-09-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://weiborao.github.io/tags/wireshark/</loc>
-    <lastmod>2021-07-06</lastmod>
+    <loc>https://weiborao.link/tags/wireshark/</loc>
+    <lastmod>2021-09-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://weiborao.github.io/tags/docker/</loc>
-    <lastmod>2021-07-06</lastmod>
+    <loc>https://weiborao.link/tags/docker/</loc>
+    <lastmod>2021-09-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://weiborao.github.io/tags/tcpdump/</loc>
-    <lastmod>2021-07-06</lastmod>
+    <loc>https://weiborao.link/tags/tcpdump/</loc>
+    <lastmod>2021-09-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://weiborao.github.io/tags/anycast/</loc>
-    <lastmod>2021-07-06</lastmod>
+    <loc>https://weiborao.link/tags/anycast/</loc>
+    <lastmod>2021-09-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
