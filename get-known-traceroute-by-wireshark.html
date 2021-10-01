@@ -2,9 +2,11 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 5.3.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,14 +15,12 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"weiborao.link","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-  <meta name="description" content="本文对Traceroute的工作原理进行分析，介绍Traceroute在输出结果中显示AS号的功能参数，并通过Wireshark抓包分析MAC电脑上Traceroute的工作收发包过程，从而重新认识Traceroute；在此基础上，介绍Traceroute的进阶工具MTR。">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"weiborao.link","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="本文对Traceroute的工作原理进行分析，介绍Traceroute在输出结果中显示AS号的功能参数，并通过Wireshark抓包分析MAC电脑上Traceroute的工作收发包过程，从而重新认识Traceroute；在此基础上，介绍Traceroute的进阶工具MTR。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="通过Wireshark重新认识Traceroute">
 <meta property="og:url" content="https://weiborao.link/get-known-traceroute-by-wireshark.html">
@@ -47,73 +47,46 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://weiborao.link/get-known-traceroute-by-wireshark/Traceroute-work.png">
 
+
 <link rel="canonical" href="https://weiborao.link/get-known-traceroute-by-wireshark.html">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
 
-  <title>通过Wireshark重新认识Traceroute | Rao Weibo的博客</title>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://weiborao.link/get-known-traceroute-by-wireshark.html","path":"get-known-traceroute-by-wireshark.html","title":"通过Wireshark重新认识Traceroute"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>通过Wireshark重新认识Traceroute | Rao Weibo的博客</title>
   
 
 
 
 
-
-
   <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 <link rel="alternate" href="/atom.xml" title="Rao Weibo的博客" type="application/atom+xml">
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">Rao Weibo的博客</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
   </div>
 
@@ -125,19 +98,10 @@
 
 
 
-
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
   </ul>
 </nav>
 
@@ -145,26 +109,94 @@
 
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9D%E8%AF%86Traceroute"><span class="nav-number">1.</span> <span class="nav-text">初识Traceroute</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Traceroute%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">Traceroute的工作原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%9A%E8%BF%87Wireshark%E6%8E%A2%E7%A9%B6Traceroute"><span class="nav-number">3.</span> <span class="nav-text">通过Wireshark探究Traceroute</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8Traceroute%E8%BE%93%E5%87%BA%E7%BB%93%E6%9E%9C%E4%B8%AD%E6%98%BE%E7%A4%BAAS%E5%8F%B7"><span class="nav-number">3.1.</span> <span class="nav-text">在Traceroute输出结果中显示AS号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E8%BF%B0Traceroute%E7%9A%84%E6%94%B6%E5%8F%91%E5%8C%85%E8%BF%87%E7%A8%8B%E7%AE%80%E8%BF%B0"><span class="nav-number">3.2.</span> <span class="nav-text">上述Traceroute的收发包过程简述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Wireshark%E6%8A%93%E5%8C%85%E8%AF%A6%E7%BB%86%E5%88%86%E6%9E%90"><span class="nav-number">3.3.</span> <span class="nav-text">Wireshark抓包详细分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number">3.4.</span> <span class="nav-text">后记</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Traceroute-%E8%BF%9B%E9%98%B6%E7%89%88%E5%B7%A5%E5%85%B7MTR"><span class="nav-number">4.</span> <span class="nav-text">Traceroute 进阶版工具MTR</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q-amp-A"><span class="nav-number">5.</span> <span class="nav-text">Q&amp;A</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">6.</span> <span class="nav-text">附录</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Rao Weibo</p>
+  <div class="site-description" itemprop="description">记录一些工作、学习相关的笔记</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/weiborao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;weiborao" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:raoweibo@gmail.com" title="E-Mail → mailto:raoweibo@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
-  <div class="reading-progress-bar"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
-  <a href="https://github.com/weiborao" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
+    <div class="main-inner post posts-expand">
 
-          <div class="content post posts-expand">
-            
 
-    
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://weiborao.link/get-known-traceroute-by-wireshark.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -181,26 +213,28 @@
           通过Wireshark重新认识Traceroute
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-06-27 14:50:00" itemprop="dateCreated datePublished" datetime="2021-06-27T14:50:00+08:00">2021-06-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-06-28 14:15:06" itemprop="dateModified" datetime="2021-06-28T14:15:06+08:00">2021-06-28</time>
-              </span>
+      <time title="创建时间：2021-06-27 14:50:00" itemprop="dateCreated datePublished" datetime="2021-06-27T14:50:00+08:00">2021-06-27</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-28 14:15:06" itemprop="dateModified" datetime="2021-06-28T14:15:06+08:00">2021-06-28</time>
+      </span>
 
-          
+  
+</div>
+
             <div class="post-description">本文对Traceroute的工作原理进行分析，介绍Traceroute在输出结果中显示AS号的功能参数，并通过Wireshark抓包分析MAC电脑上Traceroute的工作收发包过程，从而重新认识Traceroute；在此基础上，介绍Traceroute的进阶工具MTR。</div>
-
         </div>
       </header>
 
@@ -208,8 +242,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
         <h1 id="初识Traceroute"><a href="#初识Traceroute" class="headerlink" title="初识Traceroute"></a>初识Traceroute</h1><p>Traceroute是一种常见的网络分析工具，用于探测数据包从源地址到目的地址经过的路由器的IP地址。</p>
 <p>以下的示例显示从一个MAC电脑到8.8.8.8的路径探测结果：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ traceroute 8.8.8.8</span><br><span class="line">traceroute to 8.8.8.8 (8.8.8.8), 64 hops max, 52 byte packets</span><br><span class="line"> 1  localhost (10.39.101.1)  8.662 ms  1.307 ms  1.155 ms</span><br><span class="line"> 2  localhost (192.168.1.1)  2.287 ms  2.157 ms  1.897 ms</span><br><span class="line"> 3  222.129.32.1 (222.129.32.1)  5.844 ms  13.092 ms  10.332 ms</span><br><span class="line"> 4  114.244.95.105 (114.244.95.105)  7.541 ms</span><br><span class="line">    61.51.101.101 (61.51.101.101)  7.420 ms</span><br><span class="line">    61.148.163.81 (61.148.163.81)  7.075 ms</span><br><span class="line"> 5  61.148.4.213 (61.148.4.213)  7.759 ms</span><br><span class="line">    219.232.11.65 (219.232.11.65)  5.976 ms</span><br><span class="line">    bt-230-081.bta.net.cn (202.106.230.81)  6.021 ms</span><br><span class="line"> 6  202.96.12.13 (202.96.12.13)  7.828 ms * *</span><br><span class="line"> 7  219.158.112.26 (219.158.112.26)  39.486 ms *</span><br><span class="line">    219.158.7.22 (219.158.7.22)  45.959 ms</span><br><span class="line"> 8  219.158.103.218 (219.158.103.218)  48.469 ms</span><br><span class="line">    219.158.97.2 (219.158.97.2)  47.146 ms</span><br><span class="line">    219.158.103.218 (219.158.103.218)  50.320 ms</span><br><span class="line"> 9  219.158.103.30 (219.158.103.30)  50.739 ms  50.382 ms  48.348 ms</span><br><span class="line">10  219.158.10.30 (219.158.10.30)  49.927 ms  44.264 ms  56.353 ms</span><br><span class="line">11  219.158.33.174 (219.158.33.174)  54.123 ms  61.131 ms  47.302 ms</span><br><span class="line">12  108.170.241.97 (108.170.241.97)  56.082 ms</span><br><span class="line">    108.170.241.33 (108.170.241.33)  52.942 ms  54.393 ms</span><br><span class="line">13  142.250.58.189 (142.250.58.189)  48.958 ms</span><br><span class="line">    209.85.143.37 (209.85.143.37)  51.217 ms</span><br><span class="line">    108.170.226.115 (108.170.226.115)  141.544 ms</span><br><span class="line">14  dns.google (8.8.8.8)  48.935 ms  46.364 ms  51.043 ms</span><br><span class="line"></span><br><span class="line">➜  ~ ping 8.8.8.8</span><br><span class="line">PING 8.8.8.8 (8.8.8.8): 56 data bytes</span><br><span class="line">64 bytes from 8.8.8.8: icmp_seq=0 ttl=113 time=52.060 ms</span><br><span class="line">64 bytes from 8.8.8.8: icmp_seq=1 ttl=113 time=44.845 ms</span><br><span class="line">64 bytes from 8.8.8.8: icmp_seq=2 ttl=113 time=52.393 ms</span><br><span class="line">64 bytes from 8.8.8.8: icmp_seq=3 ttl=113 time=51.059 ms</span><br><span class="line">64 bytes from 8.8.8.8: icmp_seq=4 ttl=113 time=44.437 ms</span><br><span class="line">64 bytes from 8.8.8.8: icmp_seq=5 ttl=113 time=44.534 ms</span><br><span class="line">^C</span><br><span class="line">--- 8.8.8.8 ping statistics ---</span><br><span class="line">6 packets transmitted, 6 packets received, 0.0% packet loss</span><br><span class="line">round-trip min/avg/max/stddev = 44.437/48.221/52.393/3.640 ms</span><br></pre></td></tr></table></figure>
@@ -760,23 +792,8 @@
     
     
     
-        <div class="reward-container">
-  <div></div>
-  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
-    打赏
-  </button>
-  <div id="qr" style="display: none;">
-      
-      <div style="display: inline-block;">
-        <img src="/images/wechatpay.png" alt="Rao Weibo 微信支付">
-        <p>微信支付</p>
-      </div>
 
-  </div>
-</div>
-
-
-      <footer class="post-footer">
+    <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/traceroute/" rel="tag"># traceroute</a>
               <a href="/tags/wireshark/" rel="tag"># wireshark</a>
@@ -784,132 +801,35 @@
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/deploy-thousandeyes-agent-on-aws.html" rel="prev" title="在AWS上部署TE Agent并进行测试">
-      <i class="fa fa-chevron-left"></i> 在AWS上部署TE Agent并进行测试
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/docker-traceroute-tcpdump.html" rel="next" title="在Docker容器中tcpdump抓包探秘Traceroute">
-      在Docker容器中tcpdump抓包探秘Traceroute <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/deploy-thousandeyes-agent-on-aws.html" rel="prev" title="在AWS上部署TE Agent并进行测试">
+                  <i class="fa fa-chevron-left"></i> 在AWS上部署TE Agent并进行测试
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/docker-traceroute-tcpdump.html" rel="next" title="在Docker容器中tcpdump抓包探秘Traceroute">
+                  在Docker容器中tcpdump抓包探秘Traceroute <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
           </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9D%E8%AF%86Traceroute"><span class="nav-number">1.</span> <span class="nav-text">初识Traceroute</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Traceroute%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">Traceroute的工作原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%9A%E8%BF%87Wireshark%E6%8E%A2%E7%A9%B6Traceroute"><span class="nav-number">3.</span> <span class="nav-text">通过Wireshark探究Traceroute</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8Traceroute%E8%BE%93%E5%87%BA%E7%BB%93%E6%9E%9C%E4%B8%AD%E6%98%BE%E7%A4%BAAS%E5%8F%B7"><span class="nav-number">3.1.</span> <span class="nav-text">在Traceroute输出结果中显示AS号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E8%BF%B0Traceroute%E7%9A%84%E6%94%B6%E5%8F%91%E5%8C%85%E8%BF%87%E7%A8%8B%E7%AE%80%E8%BF%B0"><span class="nav-number">3.2.</span> <span class="nav-text">上述Traceroute的收发包过程简述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Wireshark%E6%8A%93%E5%8C%85%E8%AF%A6%E7%BB%86%E5%88%86%E6%9E%90"><span class="nav-number">3.3.</span> <span class="nav-text">Wireshark抓包详细分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0"><span class="nav-number">3.4.</span> <span class="nav-text">后记</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Traceroute-%E8%BF%9B%E9%98%B6%E7%89%88%E5%B7%A5%E5%85%B7MTR"><span class="nav-number">4.</span> <span class="nav-text">Traceroute 进阶版工具MTR</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q-amp-A"><span class="nav-number">5.</span> <span class="nav-text">Q&amp;A</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">6.</span> <span class="nav-text">附录</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">Rao Weibo</p>
-  <div class="site-description" itemprop="description">记录一些工作、学习相关的笔记</div>
+    </footer>
+  </article>
 </div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">10</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">18</span>
-        <span class="site-state-item-name">标签</span>
-      </div>
-  </nav>
+
+
+
+
+
+
 </div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/weiborao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;weiborao" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="mailto:weiborao@gmail.com" title="E-Mail → mailto:weiborao@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
-      </span>
-  </div>
+  </main>
 
+  <footer class="footer">
+    <div class="footer-inner">
 
-
-      </div>
-        <div class="back-to-top motion-element">
-          <i class="fa fa-arrow-up"></i>
-          <span>0%</span>
-        </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
 
 <div class="copyright">
-  
   &copy; 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
@@ -917,36 +837,18 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Rao Weibo</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
-<script src="/js/utils.js"></script>
+  
 
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
 
 
 
@@ -956,20 +858,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
 
 </body>
 </html>
