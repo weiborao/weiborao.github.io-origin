@@ -213,7 +213,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-12-17 08:23:49" itemprop="dateModified" datetime="2021-12-17T08:23:49+08:00">2021-12-17</time>
+        <time title="修改时间：2021-12-17 08:26:29" itemprop="dateModified" datetime="2021-12-17T08:26:29+08:00">2021-12-17</time>
       </span>
 
   
@@ -263,8 +263,7 @@
 <img src="/traceroute-vulnerability/icmp-ttl-exceeded.png" class="" title="icmp-ttl-exceeded">
 
 <p>在该图中，我们可以清晰的看到中间的设备192.168.100.101发送的TTL Exceeded报文，从而让扫描器探测到其与远程主机之间的路由信息，网络拓扑信息（发现了中间设备）。</p>
-<p>##建议</p>
-<p>通过上述的分析，我们得出结论：</p>
+<h2 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h2><p>通过上述的分析，我们得出结论：</p>
 <ol>
 <li>该漏洞扫描程序的判定原则与其提供的解决办法不匹配，即按照解决办法整改后，依然会扫描出<strong>允许Traceroute探测</strong>的漏洞。</li>
 <li>通过抓包分析，我们发现其判定原则存在不合理之处，即扫描过程中通过发送TTL=1、2、3……的报文，期望回复ICMP TTL Exceeded，然而在回复了ICMP Echo Reply，仍然会判定为有该漏洞。</li>
