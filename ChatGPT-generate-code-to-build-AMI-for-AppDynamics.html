@@ -20,12 +20,12 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"weiborao.link","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="作者: 饶维波 目录 本文记录通过ChatGPT生成cloud-init制作AppDynamics在AWS上 AMI安装镜像的过程，形成操作文档作为参考指南。 任务简介和总体思路任务简介AppDynamics是针对混合和现代云原生应用重新设计的可观测性平台，可提供Cisco全栈可观测性所需的业务洞察。AppDynamics 解决方案集中了技术堆栈的实时可见性，并将分布式环境的复杂性转化为相关和 A">
+<meta name="description" content="作者: 饶维波 本文记录通过ChatGPT生成cloud-init制作AppDynamics在AWS上 AMI安装镜像的过程，形成操作文档作为参考指南。 任务简介和总体思路任务简介AppDynamics是针对混合和现代云原生应用重新设计的可观测性平台，可提供Cisco全栈可观测性所需的业务洞察。AppDynamics 解决方案集中了技术堆栈的实时可见性，并将分布式环境的复杂性转化为相关和 AI 辅">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用ChatGPT生成cloud-init制作AppDynamics在AWS上的安装镜像">
 <meta property="og:url" content="https://weiborao.link/ChatGPT-generate-code-to-build-AMI-for-AppDynamics.html">
 <meta property="og:site_name" content="Rao Weibo的博客">
-<meta property="og:description" content="作者: 饶维波 目录 本文记录通过ChatGPT生成cloud-init制作AppDynamics在AWS上 AMI安装镜像的过程，形成操作文档作为参考指南。 任务简介和总体思路任务简介AppDynamics是针对混合和现代云原生应用重新设计的可观测性平台，可提供Cisco全栈可观测性所需的业务洞察。AppDynamics 解决方案集中了技术堆栈的实时可见性，并将分布式环境的复杂性转化为相关和 A">
+<meta property="og:description" content="作者: 饶维波 本文记录通过ChatGPT生成cloud-init制作AppDynamics在AWS上 AMI安装镜像的过程，形成操作文档作为参考指南。 任务简介和总体思路任务简介AppDynamics是针对混合和现代云原生应用重新设计的可观测性平台，可提供Cisco全栈可观测性所需的业务洞察。AppDynamics 解决方案集中了技术堆栈的实时可见性，并将分布式环境的复杂性转化为相关和 AI 辅">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://weiborao.link/ChatGPT-generate-code-to-build-AMI-for-AppDynamics/SCR-20230301-vv3.png">
 <meta property="og:image" content="https://weiborao.link/ChatGPT-generate-code-to-build-AMI-for-AppDynamics/SCR-20230301-vxg.png">
@@ -49,7 +49,7 @@
 <meta property="og:image" content="https://weiborao.link/ChatGPT-generate-code-to-build-AMI-for-AppDynamics/SCR-20230302-b8.png">
 <meta property="og:image" content="https://weiborao.link/ChatGPT-generate-code-to-build-AMI-for-AppDynamics/SCR-20230302-du.png">
 <meta property="article:published_time" content="2023-03-02T01:00:00.000Z">
-<meta property="article:modified_time" content="2023-03-02T02:59:49.735Z">
+<meta property="article:modified_time" content="2023-03-02T03:17:40.730Z">
 <meta property="article:author" content="Rao Weibo">
 <meta property="article:tag" content="chatGPT">
 <meta property="article:tag" content="AMI">
@@ -237,7 +237,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2023-03-02 09:00:00 / 修改时间：10:59:49" itemprop="dateCreated datePublished" datetime="2023-03-02T09:00:00+08:00">2023-03-02</time>
+      <time title="创建时间：2023-03-02 09:00:00 / 修改时间：11:17:40" itemprop="dateCreated datePublished" datetime="2023-03-02T09:00:00+08:00">2023-03-02</time>
     </span>
 
   
@@ -251,7 +251,6 @@
     
     <div class="post-body" itemprop="articleBody">
         <p>作者: 饶维波</p>
-<p><strong>目录</strong></p>
 <p>本文记录通过ChatGPT生成cloud-init制作AppDynamics在AWS上 AMI安装镜像的过程，形成操作文档作为参考指南。</p>
 <h1 id="任务简介和总体思路"><a href="#任务简介和总体思路" class="headerlink" title="任务简介和总体思路"></a>任务简介和总体思路</h1><h2 id="任务简介"><a href="#任务简介" class="headerlink" title="任务简介"></a>任务简介</h2><p>AppDynamics是针对混合和现代云原生应用重新设计的可观测性平台，可提供Cisco全栈可观测性所需的业务洞察。AppDynamics 解决方案集中了技术堆栈的实时可见性，并将分布式环境的复杂性转化为相关和 AI 辅助的见解。AppDynamics 解决方案将技术运行状况、应用程序性能和安全性与用户体验和业务影响联系起来，为您的团队提供快速解决问题和优化数字服务所需的数据，以与最重要的内容保持一致。</p>
 <p>为了方便用户在AWS云端安装部署AppDynamics，我们需要制作一个AWS的安装镜像AMI。用户使用安装镜像来启动EC2实例并自动完成Enterprise Console的部署，再通过Enterprise Console的Web界面来安装部署AppDynamics的Controller 和 Event Server，简化安装部署。</p>
